@@ -1,7 +1,8 @@
 /*
  * Aplicacao cliente
  *
- * Le e envia uma serie de mensagens para um servidor
+ * Faz a leitura de tres variaveis (q0, qf, t)
+ * e envia para o servidor
  */
 
 #include <stdio.h>

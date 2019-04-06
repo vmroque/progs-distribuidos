@@ -1,7 +1,8 @@
 /*
  * Aplicacao servidora
  *
- * Recebe e imprime uma serie de mensagens de um cliente
+ * Recebe tres variaveis do cliente
+ * e executa a funcao 'juros' sobre elas 
  */
 
 #include <stdio.h>
