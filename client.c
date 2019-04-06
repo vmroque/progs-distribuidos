@@ -1,3 +1,9 @@
+/*
+ * Aplicacao cliente
+ *
+ * Le e envia uma serie de mensagens para um servidor
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

@@ -1,3 +1,9 @@
+/*
+ * Aplicacao servidora
+ *
+ * Recebe e imprime uma serie de mensagens de um cliente
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
