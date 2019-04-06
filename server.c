@@ -14,9 +14,9 @@
 
 #define PORT 8080
 
-double juros(double q0, double qf, int t)
+double juros(double q0, double qf, double t)
 {
-	return pow(q0/qf, 1.0/t) - 1.0;
+	return pow(qf/q0, 1.0/t) - 1.0;
 }
 
 int main(int argc, char **argv)
@@ -25,7 +25,8 @@ int main(int argc, char **argv)
 	struct sockaddr_in address;
 	int addrlen = sizeof(address);
 	int len;
-	char buffer[256];
+	double q0, qf, t;
+	char buffer[1024], resp[1024];
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -38,10 +39,11 @@ int main(int argc, char **argv)
 
 	for (;;) {
 		new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
-		len = read(new_socket, buffer, 256);
+		len = read(new_socket, buffer, 1024);
 		buffer[len] = 0;
-		printf("%s\n", buffer);
-
+		sscanf(buffer, "%lf %lf %lf", &q0, &qf, &t);
+		sprintf(resp, "%lf", juros(q0, qf, t));
+		send(new_socket, resp, 1024, 0);
 		close(new_socket);
 	}
 
