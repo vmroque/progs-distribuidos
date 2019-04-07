@@ -1,0 +1,26 @@
+Aplicação Java RMI
+
+Aplicação na qual um cliente manipula 
+a cotação de moedas apresentadas em
+um servidor.
+
+A aplicação usa a biblioteca Java
+RMI (Remote Method Invocation) padrão
+da JDK.
+
+Passos para executar:
+
+1 - Compilar o código
+	$- javac *.java
+
+2 - Gerar o STUB
+	$- rmic Server
+
+3 - Executar o 'rmiregistry'
+	$- rmiregistry 
+
+4 - Executar a aplicação servidora
+	$- java ServerGUI
+
+5 - Executar a aplicação cliente
+	$- java Client
