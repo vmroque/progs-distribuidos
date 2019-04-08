@@ -63,6 +63,7 @@ int main(int argc, char **argv)
 
 		buffer[len] = 0;
 		sscanf(buffer, "%lf %lf %lf", &q0, &qf, &t);
+		printf("{q0 = %lf, qf = %lf, t = %.0lf} Recebidos!\n", q0, qf, t);
 		sprintf(buffer, "%lf", juros(q0, qf, t));
 
 		status = send(new_socket, buffer, BUFFER_SIZE, 0);
