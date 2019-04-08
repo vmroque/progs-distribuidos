@@ -12,9 +12,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
 #define BUFFER_SIZE 256
 #define N_ENTRIES  3
+
 #define ERROR(m) do {				\
 			printf(m);		\
 			exit(EXIT_FAILURE);	\
@@ -22,15 +22,20 @@
 
 int main(int argc, char **argv)
 {
-	int sock, status, i;
 	struct sockaddr_in serv_addr;
-	char input[20];
-	char buffer[BUFFER_SIZE];
+	int sock, status, i;
+	uint16_t port;
+	char ip_addr[15];
+	char input[20], buffer[BUFFER_SIZE];
+
+	if (argc < 3)
+		ERROR("USAGE: ./client <ip address> <port>\n");
+	strcpy(ip_addr, argv[1]);
+	port = (uint16_t) atoi(argv[2]);
 
 	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_port = htons(PORT);
-	status = inet_pton(AF_INET, argv[1], &serv_addr.sin_addr);
-
+	serv_addr.sin_port = htons(port);
+	status = inet_pton(AF_INET, ip_addr, &serv_addr.sin_addr);
 	if (status <= 0)
 		ERROR("Invalid address\n");
 
