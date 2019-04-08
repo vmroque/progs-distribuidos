@@ -13,7 +13,6 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
 #define BUFFER_SIZE 256
 
 double juros(double q0, double qf, double t)
@@ -23,18 +22,20 @@ double juros(double q0, double qf, double t)
 
 int main(int argc, char **argv)
 {
-	int server_fd, new_socket;
 	struct sockaddr_in address;
-	int addrlen = sizeof(address);
-	int len;
+	uint16_t port;
+	int server_fd, new_socket;
+	int addrlen = sizeof(address), len;
 	double q0, qf, t;
 	char buffer[BUFFER_SIZE];
+
+	port = (uint16_t) atoi(argv[1]);
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(PORT);
+	address.sin_port = htons(port);
 
 	bind(server_fd, (struct sockaddr *)&address, sizeof(address));
 	listen(server_fd, 3);
