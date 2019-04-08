@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 
 #define PORT 8080
+#define BUFFER_SIZE 256
 
 double juros(double q0, double qf, double t)
 {
@@ -27,7 +28,7 @@ int main(int argc, char **argv)
 	int addrlen = sizeof(address);
 	int len;
 	double q0, qf, t;
-	char buffer[1024], resp[1024];
+	char buffer[BUFFER_SIZE];
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -40,11 +41,11 @@ int main(int argc, char **argv)
 
 	for (;;) {
 		new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
-		len = read(new_socket, buffer, 1024);
+		len = read(new_socket, buffer, BUFFER_SIZE);
 		buffer[len] = 0;
 		sscanf(buffer, "%lf %lf %lf", &q0, &qf, &t);
-		sprintf(resp, "%lf", juros(q0, qf, t));
-		send(new_socket, resp, 1024, 0);
+		sprintf(buffer, "%lf", juros(q0, qf, t));
+		send(new_socket, buffer, BUFFER_SIZE, 0);
 		close(new_socket);
 	}
 
