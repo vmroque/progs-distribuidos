@@ -16,7 +16,7 @@ public class Client {
             ir.adicionarMoeda(m3);
             ir.adicionarMoeda(m4);
 
-            ir.excluirMoeda(m3);
+            ir.editarMoeda(m3, 200.00);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (RemoteException e) {

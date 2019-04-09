@@ -30,5 +30,15 @@ public class Server extends UnicastRemoteObject implements InterfaceRemota {
     }
 
     public void editarMoeda(Moeda moeda, double cotacao) throws RemoteException {
+        int i;
+        String nomeMoeda = moeda.getNome();
+        DefaultTableModel m = gui.model;
+
+        for (i = 0; i < m.getRowCount(); ++i) {
+            if (m.getValueAt(i,0).equals(nomeMoeda))
+                break;
+        }
+        if (i < m.getRowCount())
+            gui.model.setValueAt(cotacao + "", i, 1);
     }
 }
