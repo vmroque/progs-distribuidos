@@ -1,5 +1,6 @@
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.util.Vector;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.JFrame;
@@ -8,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.DefaultComboBoxModel;
 
 public class ClientGUI extends JFrame {
     InterfaceRemota ir;
@@ -20,8 +22,9 @@ public class ClientGUI extends JFrame {
     JTextField txtAddMoeda;
     JTextField txtAddCotacao;
     JTextField txtEditarCotacao;
-    JComboBox cbRemoverMoeda;
-    JComboBox cbEditarMoeda;
+    DefaultComboBoxModel<String> cbModel;
+    JComboBox<String> cbRemoverMoeda;
+    JComboBox<String> cbEditarMoeda;
     JButton btnAdicionar;
     JButton btnRemover;
     JButton btnEditar;
@@ -40,8 +43,10 @@ public class ClientGUI extends JFrame {
         btnAdicionar = new JButton("Adicionar");
         btnRemover = new JButton("Remover");
         btnEditar = new JButton("Editar");
-        cbRemoverMoeda = new JComboBox();
-        cbEditarMoeda = new JComboBox();
+        cbModel = new DefaultComboBoxModel<String>(ir.getMoedas());
+        cbRemoverMoeda = new JComboBox<String>(cbModel);
+        cbEditarMoeda = new JComboBox<String>(cbModel);
+
 
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +55,7 @@ public class ClientGUI extends JFrame {
                 Moeda moeda = new Moeda(nomeMoeda, cotacao);
                 try {
                     ir.adicionarMoeda(moeda);
+                    cbModel.addElement(nomeMoeda);
                 } catch (RemoteException a) {
                     a.printStackTrace();
                 }

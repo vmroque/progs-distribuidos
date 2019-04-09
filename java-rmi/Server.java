@@ -1,6 +1,7 @@
 import java.rmi.*;
 import java.rmi.server.*;
 import javax.swing.table.*;
+import java.util.Vector;
 
 public class Server extends UnicastRemoteObject implements InterfaceRemota {
     ServerGUI gui;
@@ -40,5 +41,16 @@ public class Server extends UnicastRemoteObject implements InterfaceRemota {
         }
         if (i < m.getRowCount())
             gui.model.setValueAt(cotacao + "", i, 1);
+    }
+
+    public Vector<String> getMoedas() throws RemoteException {
+        Vector<String> data = new Vector<String>();
+        DefaultTableModel m = gui.model;
+
+        for (int i = 0; i < m.getRowCount(); ++i) {
+            data.add(m.getValueAt(i,0).toString());
+        }
+
+        return data;
     }
 }
