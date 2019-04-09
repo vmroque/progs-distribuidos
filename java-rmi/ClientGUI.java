@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class ClientGUI extends JFrame {
     InterfaceRemota ir;
@@ -29,10 +30,11 @@ public class ClientGUI extends JFrame {
     JButton btnRemover;
     JButton btnEditar;
 
-    public ClientGUI(String ipAddr) throws RemoteException, MalformedURLException, NotBoundException {
+    public ClientGUI() throws RemoteException, MalformedURLException, NotBoundException {
         super("MCotações (Cliente)");
 
-        this.ir = (InterfaceRemota) Naming.lookup("rmi://" + ipAddr + "/InterfaceRemota");
+	String ip = JOptionPane.showInputDialog(this, "IP servidor");
+        this.ir = (InterfaceRemota) Naming.lookup("rmi://" + ip + "/InterfaceRemota");
 
         lbMoeda = new JLabel("Moeda:");
         lbCotacao = new JLabel("Cotação:");
@@ -123,7 +125,7 @@ public class ClientGUI extends JFrame {
 
     public static void main(String[] args) {
         try {
-            ClientGUI client = new ClientGUI("localhost");
+            ClientGUI client = new ClientGUI();
             client.mostrarJanela();
         } catch (MalformedURLException e) {
             e.printStackTrace();
