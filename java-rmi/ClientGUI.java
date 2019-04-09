@@ -74,6 +74,19 @@ public class ClientGUI extends JFrame {
                 }
             }
         });
+
+        btnEditar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nomeMoeda = cbEditarMoeda.getSelectedItem().toString();
+                double novaCotacao = Double.parseDouble(txtEditarCotacao.getText());
+                Moeda moeda = new Moeda(nomeMoeda, 0);
+                try {
+                    ir.editarMoeda(moeda, novaCotacao);
+                } catch (RemoteException a) {
+                    a.printStackTrace();
+                }
+            }
+        });
     }
 
     public void mostrarJanela() {
