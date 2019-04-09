@@ -1,6 +1,7 @@
 import java.net.MalformedURLException;
 import java.rmi.*;
 import java.awt.GridLayout;
+import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -25,8 +26,10 @@ public class ClientGUI extends JFrame {
     JButton btnRemover;
     JButton btnEditar;
 
-    public ClientGUI() {
+    public ClientGUI(String ipAddr) throws RemoteException, MalformedURLException, NotBoundException {
         super("MCotações (Cliente)");
+
+        this.ir = (InterfaceRemota) Naming.lookup("rmi://" + ipAddr + "/InterfaceRemota");
 
         lbMoeda = new JLabel("Moeda:");
         lbCotacao = new JLabel("Cotação:");
@@ -39,6 +42,19 @@ public class ClientGUI extends JFrame {
         btnEditar = new JButton("Editar");
         cbRemoverMoeda = new JComboBox();
         cbEditarMoeda = new JComboBox();
+
+        btnAdicionar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nomeMoeda = txtAddMoeda.getText();
+                double cotacao = Double.parseDouble(txtAddCotacao.getText());
+                Moeda moeda = new Moeda(nomeMoeda, cotacao);
+                try {
+                    ir.adicionarMoeda(moeda);
+                } catch (RemoteException a) {
+                    a.printStackTrace();
+                }
+            }
+        });
     }
 
     public void mostrarJanela() {
@@ -74,7 +90,15 @@ public class ClientGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        ClientGUI client = new ClientGUI();
-        client.mostrarJanela();
+        try {
+            ClientGUI client = new ClientGUI("localhost");
+            client.mostrarJanela();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
     }
 }
