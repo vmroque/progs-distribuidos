@@ -27,13 +27,6 @@ public class ServerGUI extends JFrame {
         painel.add(barraRolagem);
     }
 
-    public void adicionarTabela(Moeda moeda) {
-        String nomeMoeda = moeda.getNome();
-        String cotMoeda = moeda.getCotacao() + "";
-
-        model.addRow(new Object[]{nomeMoeda, cotMoeda});
-    }
-
     public void criarJanela() {
         painel = new JPanel();
         painel.setLayout(new GridLayout(1,1));

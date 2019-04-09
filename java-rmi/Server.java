@@ -9,7 +9,10 @@ public class Server extends UnicastRemoteObject implements InterfaceRemota {
     }
 
     public void adicionarMoeda(Moeda moeda) throws RemoteException {
-        this.gui.adicionarTabela(moeda);
+	String nomeMoeda = moeda.getNome();
+	String cotMoeda  = moeda.getCotacao() + "";
+
+        this.gui.model.addRow(new Object[]{nomeMoeda, cotMoeda});
     }
     public void excluirMoeda(Moeda moeda) throws RemoteException {
     }
