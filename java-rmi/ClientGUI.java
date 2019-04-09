@@ -12,10 +12,13 @@ public class ClientGUI extends JFrame {
     InterfaceRemota ir;
     JPanel painel;
     JPanel painelAddInterno;
+    JPanel painelEditarInterno;
     JLabel lbMoeda;
     JLabel lbCotacao;
+    JLabel lbNovaCotacao;
     JTextField txtAddMoeda;
     JTextField txtAddCotacao;
+    JTextField txtEditarCotacao;
     JComboBox cbRemoverMoeda;
     JComboBox cbEditarMoeda;
     JButton btnAdicionar;
@@ -27,8 +30,10 @@ public class ClientGUI extends JFrame {
 
         lbMoeda = new JLabel("Moeda:");
         lbCotacao = new JLabel("Cotação:");
+        lbNovaCotacao = new JLabel("Nova Cotação:");
         txtAddMoeda = new JTextField("");
         txtAddCotacao = new JTextField("");
+        txtEditarCotacao = new JTextField("");
         btnAdicionar = new JButton("Adicionar");
         btnRemover = new JButton("Remover");
         btnEditar = new JButton("Editar");
@@ -39,13 +44,19 @@ public class ClientGUI extends JFrame {
     public void mostrarJanela() {
         painel = new JPanel();
         painelAddInterno = new JPanel();
+        painelEditarInterno = new JPanel();
         painel.setLayout(new GridLayout(3,2));
         painelAddInterno.setLayout(new GridLayout(1,4));
+        painelEditarInterno.setLayout(new GridLayout(1,3));
 
         painelAddInterno.add(lbMoeda);
         painelAddInterno.add(txtAddMoeda);
         painelAddInterno.add(lbCotacao);
         painelAddInterno.add(txtAddCotacao);
+
+        painelEditarInterno.add(cbEditarMoeda);
+        painelEditarInterno.add(lbNovaCotacao);
+        painelEditarInterno.add(txtEditarCotacao);
 
         painel.add(painelAddInterno);
         painel.add(btnAdicionar);
@@ -53,12 +64,12 @@ public class ClientGUI extends JFrame {
         painel.add(cbRemoverMoeda);
         painel.add(btnRemover);
 
-        painel.add(cbEditarMoeda);
+        painel.add(painelEditarInterno);
         painel.add(btnEditar);
 
         getContentPane().add(painel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 100);
+        setSize(800, 100);
         setVisible(true);  
     }
 
