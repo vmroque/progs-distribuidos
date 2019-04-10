@@ -1,4 +1,7 @@
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,10 +44,14 @@ public class ServerGUI extends JFrame {
 
     public static void main(String[] args) throws RemoteException, java.net.MalformedURLException {
         ServerGUI gui = new ServerGUI();
-        Server server = new Server(gui);
+	Server server = new Server(gui);
+
+	//InterfaceRemota stub = (InterfaceRemota) UnicastRemoteObject.exportObject(server, 8080);
+
+	Registry r = LocateRegistry.createRegistry(8080);
+	r.rebind("InterfaceRemota", server);
 
         gui.criarJanela();
-
-        Naming.rebind("rmi://localhost/InterfaceRemota", server);
+        //Naming.rebind("rmi://localhost/InterfaceRemota", server);
     }
 }

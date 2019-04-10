@@ -1,5 +1,8 @@
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
 import java.awt.GridLayout;
 import java.awt.event.*;
@@ -34,7 +37,8 @@ public class ClientGUI extends JFrame {
         super("MCotações (Cliente)");
 
 	String ip = JOptionPane.showInputDialog(this, "IP servidor");
-        this.ir = (InterfaceRemota) Naming.lookup("rmi://" + ip + "/InterfaceRemota");
+	Registry reg = LocateRegistry.getRegistry(ip, 8080);
+        this.ir = (InterfaceRemota) reg.lookup("InterfaceRemota");
 
         lbMoeda = new JLabel("Moeda:");
         lbCotacao = new JLabel("Cotação:");
