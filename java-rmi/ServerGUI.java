@@ -46,12 +46,9 @@ public class ServerGUI extends JFrame {
         ServerGUI gui = new ServerGUI();
 	Server server = new Server(gui);
 
-	//InterfaceRemota stub = (InterfaceRemota) UnicastRemoteObject.exportObject(server, 8080);
-
 	Registry r = LocateRegistry.createRegistry(8080);
 	r.rebind("InterfaceRemota", server);
 
         gui.criarJanela();
-        //Naming.rebind("rmi://localhost/InterfaceRemota", server);
     }
 }
